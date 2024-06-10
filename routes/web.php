@@ -6,6 +6,8 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\SearchController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -16,6 +18,7 @@ Route::resource('/kategori', \App\Http\Controllers\KategoriController::class)->m
 Route::resource('barang', BarangController::class)->middleware('auth');
 Route::resource('barangmasuk', BarangMasukController::class)->middleware('auth');
 Route::resource('barangkeluar', BarangKeluarController::class)->middleware('auth');
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 
 
