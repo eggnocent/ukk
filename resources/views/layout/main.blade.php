@@ -53,20 +53,27 @@
             <hr class="sidebar-divider">
             
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <!-- <div class="sidebar-heading">
                 TABEL
-            </div>
+            </div> -->
             
             <!-- Nav Item - Pages Collapse Menu -->
+            <!-- <li class="nav-item active">
+                <a class="nav-link" href="kategori">
+                    <i class="fa fa-user-circle"></i>
+                    <span>Kategori</span>
+                </a>
+            </li> -->
+            
+            <!-- <hr class="sidebar-divider my-0"> -->
+            
             <li class="nav-item active">
                 <a class="nav-link" href="kategori">
                     <i class="fa fa-user-circle"></i>
                     <span>Kategori</span>
                 </a>
             </li>
-            
-            <hr class="sidebar-divider my-0">
-            
+
             <li class="nav-item active">
                 <a class="nav-link" href="barang">
                     <i class="fa fa-user-circle"></i>

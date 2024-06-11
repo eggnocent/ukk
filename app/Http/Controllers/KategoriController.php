@@ -9,17 +9,24 @@ use App\Models\Barang;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+
 class KategoriController extends Controller
 {
-    use ValidatesRequests;
-
     /**
      * Display a listing of the resource.
      */
+    use ValidatesRequests;
     public function index()
     {
+         
+
+
+        //mengakses method dari model Kategori - OK
+        // ----------------------------------------------------------------
         $rsetKategori = Kategori::all();
         return view('kategori.index', compact('rsetKategori'));
+    
+        // ----------------------------------------------------------------
     }
 
     /**
@@ -27,14 +34,13 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        $aKategori = array(
-            'blank' => 'Pilih Kategori',
-            'M' => 'Barang Modal',
-            'A' => 'Alat',
-            'BHP' => 'Bahan Habis Pakai',
-            'BTHP' => 'Bahan Tidak Habis Pakai'
-        );
-        return view('kategori.create', compact('aKategori'));
+        $aKategori = array('blank'=>'Pilih Kategori',
+                            'M'=>'Barang Modal',
+                            'A'=>'Alat',
+                            'BHP'=>'Bahan Habis Pakai',
+                            'BTHP'=>'Bahan Tidak Habis Pakai'
+                            );
+        return view('kategori.create',compact('aKategori'));
     }
 
     /**
@@ -42,16 +48,18 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'deskripsi' => 'required',
-            'kategori' => 'required|in:M,A,BHP,BTHP',
-        ]);
+    $this->validate($request, [
+        'deskripsi' => 'required',
+        'kategori' => 'required|in:M,A,BHP,BTHP',
+    ]);
 
+        //create post
         Kategori::create([
-            'deskripsi' => $request->deskripsi,
-            'kategori' => $request->kategori,
+            'deskripsi'  => $request->deskripsi,
+            'kategori'   => $request->kategori,
         ]);
 
+        //redirect to index
         return redirect()->route('kategori.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
@@ -60,12 +68,14 @@ class KategoriController extends Controller
      */
     public function show(string $id)
     {
+
         if (DB::table('barang')->where('kategori_id', $id)->exists()) {
-            $rsetKategori = Kategori::find($id);
+            $rsetKategori = Kategori::find($id); // Jika ada barang yang terkait, ambil objek kategori dengan find().
         } else {
-            $rsetKategori = Kategori::find($id); // Tidak ada metode showKategoriById pada model Kategori
+            $rsetKategori = Kategori::showKategoriById($id); // Jika tidak ada barang yang terkait, gunakan showKategoriById().
         }
 
+        //return $rsetKategori;
         return view('kategori.show', compact('rsetKategori'));
     }
 
@@ -74,16 +84,16 @@ class KategoriController extends Controller
      */
     public function edit(string $id)
     {
-        $aKategori = array(
-            'blank' => 'Pilih Kategori',
-            'M' => 'Barang Modal',
-            'A' => 'Alat',
-            'BHP' => 'Bahan Habis Pakai',
-            'BTHP' => 'Bahan Tidak Habis Pakai'
-        );
+        $aKategori = array('blank'=>'Pilih Kategori',
+        'M'=>'Barang Modal',
+        'A'=>'Alat',
+        'BHP'=>'Bahan Habis Pakai',
+        'BTHP'=>'Bahan Tidak Habis Pakai'
+    );
 
         $rsetKategori = Kategori::find($id);
-        return view('kategori.edit', compact('rsetKategori', 'aKategori'));
+        //return $rsetBarang;
+        return view('kategori.edit', compact('rsetKategori','aKategori'));
     }
 
     /**
@@ -92,16 +102,18 @@ class KategoriController extends Controller
     public function update(Request $request, string $id)
     {
         $this->validate($request, [
-            'deskripsi' => 'required',
-            'kategori' => 'required|in:M,A,BHP,BTHP',
+            'deskripsi'   => 'required',
+            'kategori'    => 'required | in:M,A,BHP,BTHP',
         ]);
 
         $rsetKategori = Kategori::find($id);
-        $rsetKategori->update([
-            'deskripsi' => $request->deskripsi,
-            'kategori' => $request->kategori
-        ]);
 
+        $rsetKategori->update([
+            'deskripsi'  => $request->deskripsi,
+            'kategori'   => $request->kategori
+            ]);
+
+            //redirect to index
         return redirect()->route('kategori.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
@@ -110,15 +122,31 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        if (DB::table('barang')->where('kategori_id', $id)->exists()) {
-            return redirect()->route('kategori.index')->with(['error' => 'Data Gagal Dihapus!']);
+
+
+        if (DB::table('barang')->where('kategori_id', $id)->exists()){
+            return redirect()->route('kategori.index')->with(['Gagal' => 'Data Gagal Dihapus!']);
         } else {
             $rsetKategori = Kategori::find($id);
             $rsetKategori->delete();
             return redirect()->route('kategori.index')->with(['success' => 'Data Berhasil Dihapus!']);
         }
+
     }
 
+    function getAPIKategori() {
+        $rsetKategori = Kategori::all();
+        $data = array("data"=>$rsetKategori);
+        // $data = array("data" => $rsetKategori);
+        return response()->json($data);
+    }
+
+    function getAPIKategorisatu($id) {
+        $rsetKategori = Kategori::find($id);
+        $data = array("data"=>$rsetKategori);
+        // $data = array("data" => $rsetKategori);
+        return response()->json($data);
+    }
     function updateAPIKategori(Request $request, $kategori_id){
         $kategori = Kategori::find($kategori_id);
 
