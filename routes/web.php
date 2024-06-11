@@ -7,10 +7,14 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+
 
 //route resource for products
 Route::resource('/products', \App\Http\Controllers\ProductController::class);

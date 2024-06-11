@@ -18,6 +18,12 @@ class Barang extends Model
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
+    // Tambahkan relasi ke BarangMasuk
+    public function barangmasuk()
+    {
+        return $this->hasMany(BarangMasuk::class, 'barang_id', 'id');
+    }
+
     public static function search($query)
     {
         return self::where('merk', 'LIKE', "%{$query}%")

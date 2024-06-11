@@ -1,4 +1,4 @@
-@extends('layout.dashboard')
+@extends('layout.main')
 
 
 @section('content')
@@ -15,7 +15,7 @@
                             @method('PUT')
 
                             <div class="form-group">
-                                <label class="font-weight-bold">NAMA</label>
+                                <label class="font-weight-bold">MERK</label>
                                 <input type="text" class="form-control @error('merk') is-invalid @enderror" name="merk" value="{{ old('merk',$rsetBarang->merk) }}" placeholder="Masukkan Merk Barang">
                            
                                 <!-- error message untuk merk -->

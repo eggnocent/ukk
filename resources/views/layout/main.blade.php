@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Siswa Koding</title>
+    <title>Sinvent 2024</title>
 
     <!-- Custom fonts for this template-->
     <link href="{!! asset('theme/vendor/fontawesome-free/css/all.min.css') !!}" rel="stylesheet" type="text/css">
@@ -42,12 +42,12 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <!-- <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+           <!-- Nav Item - Dashboard -->
+           <li class="nav-item active">
+                <a class="nav-link" href="{{ route('dashboard') }}">
+                    <i class="fas fa-home"></i>
                     <span>Dashboard</span></a>
-            </li> -->
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
