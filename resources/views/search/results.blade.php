@@ -22,7 +22,7 @@
                                 <th>Kategori</th>
                                 <th>Spesifikasi</th>
                                 <th>Stok</th>
-                                <!-- Tambahkan kolom lain yang diperlukan -->
+                                <th>Aksi</th> <!-- Kolom aksi ditambahkan -->
                             </tr>
                         </thead>
                         <tbody>
@@ -34,7 +34,15 @@
                                     <td>{{ $kategori->kategori }}</td>
                                     <td>{{ $kategori->spesifikasi }}</td>
                                     <td>-</td>
-                                    <!-- Tambahkan kolom lain yang diperlukan -->
+                                    <td>
+                                        <a href="{{ route('kategori.show', $kategori->id) }}" class="btn btn-info btn-sm">View</a>
+                                        <a href="{{ route('kategori.edit', $kategori->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('kategori.destroy', $kategori->id) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus item ini?')">Hapus</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             @foreach($results['barang'] as $barang)
@@ -44,7 +52,15 @@
                                     <td>{{ $barang->kategori->kategori }}</td>
                                     <td>{{ $barang->spesifikasi }}</td>
                                     <td>{{ $barang->stok }}</td>
-                                    <!-- Tambahkan kolom lain yang diperlukan -->
+                                    <td>
+                                        <a href="{{ route('barang.show', $barang->id) }}" class="btn btn-info btn-sm">View</a>
+                                        <a href="{{ route('barang.edit', $barang->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('barang.destroy', $barang->id) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus item ini?')">Hapus</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
