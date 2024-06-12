@@ -12,6 +12,12 @@
                 <p>{{ $message }}</p>
             </div>
         @endif
+        @if(Session::has('Gagal'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ Session::get('Gagal') }}
+                        </div>
+                    @endif
+
                 <div class="card">
                     <div class="card-body">
                         <a href="{{ route('barang.create') }}" class="btn btn-md btn-success mb-3">TAMBAH ITEM</a>

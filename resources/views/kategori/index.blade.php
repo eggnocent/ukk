@@ -10,6 +10,10 @@
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
+        @elseif(session('Gagal'))
+            <div class="alert alert-danger">
+                {{ session('Gagal') }}
+            </div>
         @endif
     
         <div class="table-responsive">
